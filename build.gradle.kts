@@ -15,12 +15,20 @@ subprojects {
     apply("plugin" to "maven-publish")
 
     repositories {
-        maven {
-            setUrl("https://repo.c7x.ru/repository/maven-public/")
+        maven{
+            url = uri("http://51.83.213.14/repo/private")
+            isAllowInsecureProtocol = true
             credentials {
-                username = System.getenv("CRI_REPO_LOGIN") ?: project.properties["CRI_REPO_LOGIN"] as String
-                password = System.getenv("CRI_REPO_PASSWORD") ?: project.properties["CRI_REPO_PASSWORD"] as String
+                username = System.getenv("DL_REPO_LOGIN") as String
+                password = System.getenv("DL_REPO_PASSWORD") as String
             }
+        }
+        maven {
+            name = "Mojang"
+            url = uri("https://libraries.minecraft.net/")
+        }
+        maven {
+            url = uri("https://repository.anfanik.me/public")
         }
         mavenCentral()
     }
@@ -32,11 +40,12 @@ subprojects {
         }
         publishing {
             repositories {
-                maven {
-                    setUrl("https://repo.c7x.ru/repository/maven-releases/")
+                maven{
+                    url = uri("http://51.83.213.14/repo/private")
+                    isAllowInsecureProtocol = true
                     credentials {
-                        username = System.getenv("CRI_REPO_LOGIN") ?: project.properties["CRI_REPO_LOGIN"] as String
-                        password = System.getenv("CRI_REPO_PASSWORD") ?: project.properties["CRI_REPO_PASSWORD"] as String
+                        username = System.getenv("DL_REPO_LOGIN") as String
+                        password = System.getenv("DL_REPO_PASSWORD") as String
                     }
                 }
             }
